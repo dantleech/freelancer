@@ -1,0 +1,33 @@
+{
+    "name": "dantleech/freelancer",
+    "description": "Keep track of clients, time and invoices",
+    "type": "app",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Leech",
+            "email": "daniel@dantleech.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "DTL\\Freelancer\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DTL\\Freelancer\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "phpbench/container": "^1.0@dev",
+        "twig/twig": "^1.24",
+        "mindplay/middleman": "^1.1",
+        "zendframework/zend-diactoros": "^1.3",
+        "aura/router": "^3.0",
+        "symfony/debug": "^3.1",
+        "doctrine/dbal": "^2.5",
+        "symfony/console": "^3.1"
+    }
+}

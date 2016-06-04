@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+use DTL\Freelancer\Freelancer;
+use DTL\Freelancer\Console\Application;
+
+require(__DIR__ . '/../vendor/autoload.php');
+Freelancer::getContainer()->get(Application::class)->run();
