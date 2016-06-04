@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+<h2><a href="{{ path('client', { 'client': client.code }) }}">{{ client.code }}</a>: {{ client.title }}</h2>
+<h2>{{ project.code }}: {{ project.title }}</h2>
+<div class="panel">
+    <h3>Details</h3>
+    <table>
+        <tr>
+            <th>code</th>
+            <td><a href="{{ path('project', { "client": client.code, "project": project.code }) }}">{{ project.code }}</a></td>
+            <th>title</th>
+            <td>{{ project.title }}</td>
+        </tr>
+        <tr>
+            <th>rate</th>
+            <td>{{ project.rate }}</td>
+            <th>currency</th>
+            <td>{{ project.currency }}</td>
+        </tr>
+        <tr>
+            <th>Total Hours</th>
+            <td>{{ timesheet.totalTime.format('%h:%i') }}</td>
+        </tr>
+    </table>
+</div>
+<div class="panel">
+    <h3>Timesheet</h3>
+    <table>
+        <tr>
+            <th>date</th>
+            <th>start</th>
+            <th>end</th>
+            <th>comment</th>
+            <th>group</th>
+        </tr>
+        {% for entry in timesheet %}
+            <tr>
+                <td>{{ entry.start.format('Y-m-d') }}</td>
+                <td>{{ entry.start.format('H:i') }}</td>
+                <td>{{ entry.end.format('H:i') }}</td>
+                <td>{{ entry.comment }}</td>
+                <td>{{ entry.group }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

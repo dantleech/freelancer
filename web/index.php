@@ -10,6 +10,7 @@ use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\Debug\ErrorHandler;
+use DTL\Freelancer\Freelancer;
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 

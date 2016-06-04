@@ -1,0 +1,39 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+<h2>Client: {{ client.code }}: {{ client.title }}</h2>
+<div class="panel">
+    <h3>Details</h3>
+        <table>
+            <tr>
+                <th>Contact</th>
+                <td>{{ client.contact }}</td>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Default Rate</th>
+                <td>{{ client.defaultRate }}</td>
+                <th>Default Currency</th>
+                <td>{{ client.defaultCurrency }}</td>
+            </tr>
+        </table>
+    </div>
+<div class="panel">
+    <h3>Projects</h3>
+    <table>
+        <tr>
+            <th>code</th>
+            <th>title</th>
+            <th>rate</th>
+            <th>currency</th>
+        </tr>
+        {% for project in projects %}
+            <tr>
+                <td><a href="{{ path('project', { "client": client.code, "project": project.code }) }}">{{ project.code }}</a></td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.rate }}</td>
+                <td>{{ project.currency }}</td>
+            </tr>
+        {% endfor %}
+
+{% endblock %}

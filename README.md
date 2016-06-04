@@ -1,5 +1,9 @@
-My PHP Project
-==================
+Freelancer
+==========
 
-[![Build Status](https://travis-ci.org/my-vendor/my-package.svg?branch=master)](https://travis-ci.org/my-vendor/my-package)
-[![StyleCI](https://styleci.io/repos/<repo-id>/shield)](https://styleci.io/repos/<repo-id>)
+Plain-text based CRM / Time Tracker / Financial Manager.
+
+- Store your data on syncthing/dropbox/your-distributed-storage.
+- Edit your client information in a text editor.
+- View it on the web.
+- Work offline.

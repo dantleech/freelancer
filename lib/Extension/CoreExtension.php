@@ -18,7 +18,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use DTL\Freelancer\Freelancer;
 use DTL\Freelancer\Console\Application;
-use DTL\Freelancer\Console\Command\DbalMigrateCommand;
+use DTL\Freelancer\Repository;
+use DTL\Freelancer\Repository\ClientRepository;
+use DTL\Freelancer\Console\Command\ImportCommand;
+use DTL\Freelancer\Action\ClientAction;
+use DTL\Freelancer\Repository\ProjectRepository;
+use DTL\Freelancer\Action\ProjectAction;
 
 class CoreExtension implements ExtensionInterface
 {
@@ -28,7 +33,7 @@ class CoreExtension implements ExtensionInterface
         $this->loadTwig($container);
         $this->loadRouter($container);
         $this->loadActions($container);
-        $this->loadDbal($container);
+        $this->loadRepositories($container);
         $this->loadConsole($container);
     }
 
@@ -52,6 +57,7 @@ class CoreExtension implements ExtensionInterface
             'debug' => true,
             'twig.views.path' => __DIR__ . '/../../views',
             'cache_path' => __DIR__ . '/../../var/cache',
+            'data_dir' => __DIR__ . '/../../var/data',
             'dbal.path' => __DIR__ . '/../../var/freelancer.db'
         ];
     }
@@ -81,7 +87,8 @@ class CoreExtension implements ExtensionInterface
             $loader = new Twig_Loader_Filesystem($container->getParameter('twig.views.path'));
             $twig = new Twig_Environment($loader, array(
                 'cache' => $container->getParameter('cache_path') . '/twig',
-                'debug' => $container->getParameter('debug')
+                'debug' => $container->getParameter('debug'),
+                'strict_variables' => true
             ));
 
             return $twig;
@@ -104,17 +111,29 @@ class CoreExtension implements ExtensionInterface
         $container->register(DashboardAction::class, function ($container) {
             return new DashboardAction($container->get(Twig_Environment::class));
         });
+        $container->register(ClientAction::class, function ($container) {
+            return new ClientAction(
+                $container->get(Twig_Environment::class),
+                $container->get(ClientRepository::class),
+                $container->get(ProjectRepository::class)
+            );
+        });
+        $container->register(ProjectAction::class, function ($container) {
+            return new ProjectAction(
+                $container->get(Twig_Environment::class),
+                $container->get(ClientRepository::class),
+                $container->get(ProjectRepository::class)
+            );
+        });
     }
 
-    private function loadDbal($container)
+    private function loadRepositories(Container $container)
     {
-        $container->register(Connection::class, function ($container) {
-            $params = array(
-                'driver' => 'pdo_sqlite',
-                'path' => $container->getParameter('dbal.path'),
-            );
-
-            return DriverManager::getConnection($params);
+        $container->register(ClientRepository::class, function ($container) {
+            return new ClientRepository($container->getParameter('data_dir'));
+        });
+        $container->register(ProjectRepository::class, function ($container) {
+            return new ProjectRepository();
         });
     }
 
@@ -123,10 +142,5 @@ class CoreExtension implements ExtensionInterface
         $container->register(Application::class, function ($container) {
             return new Application('freelance', Freelancer::VERSION);
         });
-
-        // commands
-        $container->register(DbalMigrateCommand::class, function ($container) {
-            return new DbalMigrateCommand($container->get(Connection::class));
-        }, [ 'console.command' => []]);
     }
 }
