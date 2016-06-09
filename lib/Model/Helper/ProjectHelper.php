@@ -8,7 +8,7 @@ use DTL\Freelancer\Model\Project;
 class ProjectHelper
 {
     const PROJECT_DIR = 'projects';
-    const PROJECT_CODE_PATTERN = '[0-9]{4}[A-Z0-9]{6}';
+    const PROJECT_CODE_PATTERN = '[0-9]{2}[A-Z0-9]{6}';
 
     public function getProjectsDirForClient($client)
     {
@@ -36,7 +36,7 @@ class ProjectHelper
 
     public function expandProjectCode($code)
     {
-        return sprintf('%s/%s', substr($code, 0, 4), substr($code, 4));
+        return sprintf('%s/%s', substr($code, 0, 2), substr($code, 2));
     }
 
     public function validateProjectCode($code)

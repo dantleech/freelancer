@@ -9,11 +9,11 @@ class Freelancer
 {
     const VERSION = '0.0.1';
 
-    public static function getContainer()
+    public static function getContainer(array $config)
     {
         $container = new Container([
             CoreExtension::class
-        ]);
+        ], $config);
         $container->init();
 
         return $container;

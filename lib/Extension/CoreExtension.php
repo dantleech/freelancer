@@ -20,7 +20,6 @@ use DTL\Freelancer\Freelancer;
 use DTL\Freelancer\Console\Application;
 use DTL\Freelancer\Repository;
 use DTL\Freelancer\Repository\ClientRepository;
-use DTL\Freelancer\Console\Command\ImportCommand;
 use DTL\Freelancer\Action\ClientAction;
 use DTL\Freelancer\Repository\ProjectRepository;
 use DTL\Freelancer\Action\ProjectAction;

@@ -17,7 +17,9 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 ExceptionHandler::register();
 ErrorHandler::register();
 
-$container = Freelancer::getContainer();
+$container = Freelancer::getContainer([
+    'data_dir' => '/home/daniel/documents/freelancer'
+]);
 $dispatcher = new Dispatcher(
     [
         ControllerMiddleware::class

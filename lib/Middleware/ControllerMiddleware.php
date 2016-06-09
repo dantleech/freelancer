@@ -33,7 +33,7 @@ class ControllerMiddleware
         $map->get('project', '/{client}/p/{project}', ProjectAction::class)
             ->tokens([
                 'client' => '[A-Z]{6}',
-                'project' => '[0-9]{4}[A-Z]{6}'
+                'project' => '[0-9]{2}[A-Z]{6}'
             ]);
 
         $matcher = $this->container->get(Matcher::class);

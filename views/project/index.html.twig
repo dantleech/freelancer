@@ -20,6 +20,8 @@
         <tr>
             <th>Total Hours</th>
             <td>{{ timesheet.totalTime.format('%h:%i') }}</td>
+            <th>Total Earnings</th>
+            <td>{{ timesheet.totalTime.format('%h') * project.rate }} {{ project.currency }}</td>
         </tr>
     </table>
 </div>
